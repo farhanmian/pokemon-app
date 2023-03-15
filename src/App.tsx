@@ -1,25 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import { PageLinkType } from './types/types';
+import { Link} from 'react-router-dom';
 
-function App() {
+
+const App = () => {
+  const [pokemonList, setPokemonList] = useState<{ name: string; url: string }[]>([]);
+  const [paginationLink, setPaginationLink] = useState<PageLinkType>({ next: null, previous: null })
+  const [dataUrl, setDataUrl] = useState('https://pokeapi.co/api/v2/pokemon')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!dataUrl) return;
+
+      try {
+        const res = await fetch(dataUrl);
+        const data = await res.json();
+        setPokemonList(data.results);
+        setPaginationLink({ next: data.next, previous: data.previous });
+        window.scrollTo({behavior: 'smooth', top: 0})
+      } catch (err) {
+        console.log('err', err)
+      }
+
+    }
+    fetchData();
+  }, [dataUrl])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+
+    <section>
+      <div className='innerContainer' >
+        <div className="pokemonContainer">
+          {pokemonList.map((item,i) => {
+            const link = item?.url.replace('https://pokeapi.co/api/v2/pokemon', '')
+
+            return (
+              <Link key={i} to={`${item.name}${link}`} className='pokemonCard' >
+                <p>{item.name}</p>
+              </Link>
+            )
+          })}
+        </div>
+
+        <div className='buttonContainer' >
+          <button disabled={!paginationLink.previous} onClick={()=> setDataUrl(`${paginationLink.previous}`)} >previous</button>
+          <button disabled={!paginationLink.next} onClick={()=> setDataUrl(`${paginationLink.next}`)} >Next</button>
+        </div>
+      </div>
+
+    </section>
   );
 }
 

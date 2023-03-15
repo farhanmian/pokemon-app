@@ -1,38 +1,69 @@
-.App {
+.innerContainer {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.pokemonContainer {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: repeat(3,max-content);
+  gap: 40px;
+  justify-content: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.pokemonCard {
+  background: #ccc;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border-radius: 5px;
+  background-image: radial-gradient(rgba(0,0,0,.6), rgba(0,0,0,.4)), url(./assets/img/pokemon-card-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  text-transform: capitalize;
+  font-size: 26px;
+  color: #fff;
+  font-weight: 500;
+  padding-top: 20px;
+  transition: all .2s;
+}
+.pokemonCard:hover {
+  box-shadow: 0 2px 8px rgba(122, 99, 6, 0.4);
+  background-image: radial-gradient(rgba(0,0,0,.4), rgba(0,0,0,.2)), url(./assets/img/pokemon-card-bg.jpg);
+}
+.pokemonCard:active {
+  box-shadow: 0 2px 4px rgba(122, 99, 6, 0.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.buttonContainer {
+  width: max-content;
+  margin-left: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.buttonContainer button {
+  border: none;
+  padding: 10px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  border-radius: 2px;
+  text-transform: capitalize;
+  width: 100px;
+  background-color: #d39a0be2;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all .2s;
+}
+.buttonContainer button:disabled,.buttonContainer button:disabled:hover {
+  background: #4f3901e2;
+  cursor: not-allowed;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttonContainer button:hover {
+  background-color: #d79e0f;
 }
